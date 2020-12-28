@@ -37,6 +37,7 @@ load_kernel:
 BEGIN_PM: ; after the switch we will get here
     mov ebx, MSG_PROT_MODE
     call print_string_pm ; Note that this will be written at the top left corner
+    call KERNEL_OFFSET
     jmp $
 
 BOOT_DRIVE db 0
