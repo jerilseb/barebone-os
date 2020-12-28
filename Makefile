@@ -1,5 +1,7 @@
+.PHONY: build clean
+
 build: os-image.bin
-	@cp os-image.bin /mnt/c/Users/Jeril/Desktop
+	@cp $< /mnt/c/Users/Jeril/Desktop
 
 clean:
 	@rm *.o *.bin
