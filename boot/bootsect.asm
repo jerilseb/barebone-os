@@ -14,11 +14,11 @@
     call switch_to_pm
     jmp $ ; this will actually never be executed
 
-%include "16-bit-print.asm"
-%include "gdt.asm"
-%include "32-bit-print.asm"
-%include "32-bit-switch.asm"
-%include "disk-load.asm"
+%include "boot/16-bit-print.asm"
+%include "boot/gdt.asm"
+%include "boot/32-bit-print.asm"
+%include "boot/32-bit-switch.asm"
+%include "boot/disk-load.asm"
 
 [bits 16]
 load_kernel:
