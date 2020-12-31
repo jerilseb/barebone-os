@@ -6,12 +6,17 @@ void main() {
 
     /* Fill up the screen */
     int i = 0;
-    for (i = 0; i < 24; i++) {
+    for (i = 0; i < 10; i++) {
         char str[255];
         int_to_ascii(i, str);
         kprint_at(str, 0, i);
     }
 
-    kprint_at("This text forces the kernel to scroll. Row 0 will disappear. ", 60, 24);
-    kprint("And with this text, the kernel will scroll again, and row 1 will disappear too!");
+    kprint("\nThis is a line\n");
+    kprint("\nThis is another line!\n\n");
+
+    isr_install();
+    /* Test the interrupts */
+    __asm__ __volatile__("int $2");
+    __asm__ __volatile__("int $3");
 }

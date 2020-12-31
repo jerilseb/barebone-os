@@ -1,9 +1,9 @@
-C_SOURCES = $(wildcard kernel/*.c drivers/*.c)
+C_SOURCES = $(wildcard kernel/*.c drivers/*.c cpu/*.c)
 
-OBJ = $(C_SOURCES:.c=.o)
+OBJ = $(C_SOURCES:.c=.o cpu/interrupt.o)
 
 CC = @gcc
-CFLAGS = -g
+CFLAGS = -g -m32 -fno-pie
 
 .PHONY: build clean debug
 
@@ -18,7 +18,7 @@ os-image.bin: boot/bootsect.bin kernel.bin
 	@cat $^ > $@
 
 kernel.bin: boot/kernel-entry.o $(OBJ)
-	@ld -o $@ -Ttext 0x1000 $^ --oformat binary
+	@ld -m elf_i386 -o $@ -Ttext 0x1000 $^ --oformat binary
 
 # For debugging
 kernel.elf: boot/kernel-entry.o $(OBJ)
@@ -28,12 +28,12 @@ kernel.elf: boot/kernel-entry.o $(OBJ)
 	$(CC) $(CFLAGS) -ffreestanding -c $< -o $@
 
 %.o: %.asm
-	@nasm $< -f elf64 -o $@
+	@nasm $< -f elf32 -o $@
 
 %.bin: %.asm
 	@nasm $< -f bin -o $@
 
 clean:
 	@rm -rf *.o *.bin *.elf
-	@rm -rf boot/*.o boot/*.bin kernel/*.o drivers/*.o
+	@rm -rf boot/*.o boot/*.bin kernel/*.o drivers/*.o cpu/*.o
 
