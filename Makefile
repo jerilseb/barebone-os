@@ -3,7 +3,8 @@ C_SOURCES = $(wildcard kernel/*.c drivers/*.c cpu/*.c libc/*.c)
 OBJ = $(C_SOURCES:.c=.o cpu/interrupt.o)
 
 CC = @gcc
-CFLAGS = -g -m32 -fno-pie
+CFLAGS = -g -m32 -fno-pie -nostdinc -fno-builtin -fno-stack-protector -nostartfiles -nodefaultlibs \
+			-Wall -Wextra -Werror
 
 .PHONY: build clean debug
 
