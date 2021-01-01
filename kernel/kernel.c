@@ -1,5 +1,6 @@
 #include "../drivers/screen.h"
 #include "util.h"
+#include "../cpu/timer.h"
 
 void main() {
     clear_screen();
@@ -16,7 +17,10 @@ void main() {
     kprint("\nThis is another line!\n\n");
 
     isr_install();
-    /* Test the interrupts */
-    __asm__ __volatile__("int $2");
-    __asm__ __volatile__("int $3");
+
+    asm volatile("sti");
+    // init_timer(10);
+    /* Comment out the timer IRQ handler to read
+     * the keyboard IRQs easier */
+    init_keyboard();
 }
