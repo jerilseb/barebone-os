@@ -1,4 +1,4 @@
-C_SOURCES = $(wildcard kernel/*.c drivers/*.c cpu/*.c)
+C_SOURCES = $(wildcard kernel/*.c drivers/*.c cpu/*.c libc/*.c)
 
 OBJ = $(C_SOURCES:.c=.o cpu/interrupt.o)
 
@@ -35,5 +35,5 @@ kernel.elf: boot/kernel-entry.o $(OBJ)
 
 clean:
 	@rm -rf *.o *.bin *.elf
-	@rm -rf boot/*.o boot/*.bin kernel/*.o drivers/*.o cpu/*.o
+	@rm -rf boot/*.o boot/*.bin kernel/*.o drivers/*.o cpu/*.o libc/*.o
 
