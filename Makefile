@@ -4,12 +4,12 @@ OBJ = $(C_SOURCES:.c=.o cpu/interrupt.o)
 
 CC = @gcc
 CFLAGS = -g -m32 -fno-pie -nostdinc -fno-builtin -fno-stack-protector -nostartfiles -nodefaultlibs \
-			-Wall -Wextra -Werror
+			-Wall -Wextra -Werror -fcommon
 
 .PHONY: build clean debug
 
-build: os-image.bin
-	@cp $< /mnt/c/Users/Jeril/Desktop
+run: os-image.bin
+	qemu-system-i386 $^
 
 # For debugging, launch qemu before running this
 debug: kernel.elf
